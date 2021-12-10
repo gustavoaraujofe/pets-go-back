@@ -21,6 +21,7 @@ app.use(`/api/v${API_VERSION}/user`, userRouter);
 app.use(`/api/v${API_VERSION}/vet`, vetRouter);
 app.use(`/api/v${API_VERSION}/medical-record`, medicalRecordRouter)
 
+
 app.listen(Number(process.env.PORT), () =>
   console.log(`Server up and running at port ${process.env.PORT}`)
 );
