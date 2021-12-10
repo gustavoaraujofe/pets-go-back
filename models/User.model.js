@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     default:
-      "https://safetyaustraliagroup.com.au/wp-content/uploads/2019/05/image-not-found.png",
+      "https://icsr.zju.edu.cn/faculty/default.png",
   },
   animals: [{type: Schema.Types.ObjectId, ref: "Animal"}]
 });
