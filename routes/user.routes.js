@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
+const uploader = require("../config/cloudinary.config");
+
 const UserModel = require("../models/User.model");
 const generateToken = require("../config/jwt.config");
 const isAuthenticated = require("../middlewares/isAuthenticated");
@@ -8,12 +10,24 @@ const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 const salt_rounds = 10;
 
+// Upload do avatar
+
+router.post("/upload", uploader.single("picture"), (req, res) => {
+  if (!req.file) {
+    return res.status(500).json({msg: "Upload de arquivo falhou."})
+  }
+
+  console.log(req.file)
+
+  return res.status(200).json({url:req.file.path})
+})
+
 // Crud (CREATE) - HTTP POST
 // Criar um novo usuário
-router.post("/signup", async (req, res) => {
-  // Requisições do tipo POST tem uma propriedade especial chamada body, que carrega a informação enviada pelo cliente
-  console.log(req.body);
 
+router.post("/signup", async (req, res) => {
+  
+  console.log(req.body);
   try {
     // Recuperar a senha que está vindo do corpo da requisição
     const { password } = req.body;
@@ -25,9 +39,9 @@ router.post("/signup", async (req, res) => {
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/
       )
     ) {
-      // O código 400 significa Bad Request
+    // O código 400 significa Bad Request
       return res.status(400).json({
-        msg: "Password is required and must have at least 8 characters, uppercase and lowercase letters, numbers and special characters.",
+        msg: "A senha é obrigatória e deve ter pelo menos 8 caracteres, letras maiúsculas e minúsculas, números e caracteres especiais."
       });
     }
 
@@ -37,13 +51,13 @@ router.post("/signup", async (req, res) => {
     // Criptografa a senha
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Salva os dados de usuário no banco de dados (MongoDB) usando o body da requisição como parâmetro
+    // Salva os dados de usuário no banco de dados
     const result = await UserModel.create({
       ...req.body,
       passwordHash: hashedPassword,
     });
 
-    // Responder o usuário recém-criado no banco para o cliente (solicitante). O status 201 significa Created
+    // Responder o usuário recém-criado no banco para o cliente (solicitante)
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -67,7 +81,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ msg: "This email is not yet registered in our website;" });
+        .json({ msg: "Este email ainda não está cadastrado em nosso site." });
     }
 
     // Verificar se a senha do usuário pesquisado bate com a senha recebida pelo formulário
@@ -76,18 +90,11 @@ router.post("/login", async (req, res) => {
       // Gerando o JWT com os dados do usuário que acabou de logar
       const token = generateToken(user);
 
-      return res.status(200).json({
-        user: {
-          name: user.name,
-          email: user.email,
-          _id: user._id,
-          role: user.role,
-        },
-        token,
-      });
+      return res.status(200).json(token);
+      
     } else {
       // 401 Significa Unauthorized
-      return res.status(401).json({ msg: "Wrong password or email" });
+      return res.status(401).json({ msg: "Senha ou email errado." });
     }
   } catch (err) {
     console.error(err);
@@ -108,7 +115,7 @@ router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
       // Responder o cliente com os dados do usuário. O status 200 significa OK
       return res.status(200).json(loggedInUser);
     } else {
-      return res.status(404).json({ msg: "User not found." });
+      return res.status(404).json({ msg: "Usuário não encontrado." });
     }
   } catch (err) {
     console.error(err);
