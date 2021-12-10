@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const querySchema = new mongoose.Schema({
+const MedicalAppointmentSchema = new mongoose.Schema({
   animalId: { type: mongoose.Types.ObjectId, ref: "Animal" },
   date: { type: String, default: new Date().toLocaleDateString() },
-  weight: [],
+  weight: Number,
   clinicalSigns: String,
   prescription: String,
   vetId: { type: mongoose.Types.ObjectId, ref: "Vet" },
 });
 
-module.exports = mongoose.model("Query", querySchema);
+module.exports = mongoose.model("MedicalAppointment", MedicalAppointmentSchema);
