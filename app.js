@@ -14,6 +14,11 @@ app.use(morgan("dev"));
 app.use(cors({ origin: process.env.REACT_APP_URL }));
 
 const userRouter = require("./routes/user.routes");
+const animalRouter = require('./routes/animal.routes')
+const queryRouter = require('./routes/query.routes')
+app.use("/api", userRouter);
+app.use("/api", animalRouter);
+app.use("/api", queryRouter);
 const vetRouter = require("./routes/vet.routes");
 const medicalRecordRouter = require("./routes/medicalRecord.routes");
 
