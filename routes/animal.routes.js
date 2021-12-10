@@ -1,8 +1,20 @@
 const express = require('express');
+const uploader = require("../config/cloudinary.config");
+
 
 const router = express.Router();
 
 const AnimalModel = require('../models/Animal.model');
+
+// Upload 
+router.post('/upload', uploader.single("picture"), (req, res) => {
+    if (!req.file) {
+        return res.status(500).json({msg: "Upload de arquivo falhou."})
+    }
+
+    console.log(req.file);
+    return res.status(201).json({url:req.file.path});
+});
 
 
 // POST
