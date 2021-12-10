@@ -14,7 +14,7 @@ router.post("/upload", uploader.single("picture"), (req, res) => {
 });
 
 // POST
-router.post("/create-animal", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const result = await AnimalModel.create(req.body);
     res.status(201).json(result);
@@ -24,19 +24,8 @@ router.post("/create-animal", async (req, res) => {
   }
 });
 
-// GET (lista)
-router.get("/animals", async (req, res) => {
-  try {
-    const animals = await AnimalModel.find();
-    res.status(200).json(animals);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
 // GET (Busca detalhada)
-router.get("/animals/:id", async (req, res) => {
+router.get("/search/:id", async (req, res) => {
   try {
     const result = await AnimalModel.findOne({ _id: req.params.id });
 
@@ -52,7 +41,7 @@ router.get("/animals/:id", async (req, res) => {
 });
 
 // PATCH (Editar)
-router.patch("/animals/:id", async (req, res) => {
+router.patch("/edit/:id", async (req, res) => {
   try {
     const result = await AnimalModel.findOneAndUpdate(
       { _id: req.params.id },
@@ -72,7 +61,7 @@ router.patch("/animals/:id", async (req, res) => {
 });
 
 // DELETE
-router.delete("/animals/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     const result = await AnimalModel.deleteOne({ _id: req.params.id });
     res.status(200).json({});

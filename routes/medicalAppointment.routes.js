@@ -1,9 +1,10 @@
 const express = require("express");
 
 const router = express.Router();
-const queryModel = require("../models/Query.model");
+const queryModel = require("../models/MedicalAppointment.model");
 
-router.post("/created-query", async (req, res) => {
+//Criar consulta médica
+router.post("/create", async (req, res) => {
   try {
     const result = await queryModel.create(req.body);
     res.status(201).json(result);
@@ -13,17 +14,8 @@ router.post("/created-query", async (req, res) => {
   }
 });
 
-router.get("/queries", async (req, res) => {
-  try {
-    const query = await queryModel.find();
-    res.status(200).json(query);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-router.get("/queries/:id", async (req, res) => {
+//Buscar consulta médica
+router.get("/search/:id", async (req, res) => {
   try {
     const query = await queryModel.findOne({ _id: req.params.id });
 
@@ -38,7 +30,8 @@ router.get("/queries/:id", async (req, res) => {
   }
 });
 
-router.patch("/queries/:id", async (req, res) => {
+//Editar consulta médica
+router.patch("/edit/:id", async (req, res) => {
   try {
     const result = await queryModel.findOneAndUpdate(
       { _id: req.params.id },

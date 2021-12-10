@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const MedicalRecordSchema = new mongoose.Schema({
-  queriesHistory: [{ type: mongoose.Types.ObjectId, ref: "Query" }],
+  queriesHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
   examHistory: [String],
   diseaseHistory: [String],
   vaccines: [String],
