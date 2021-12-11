@@ -76,8 +76,18 @@ router.post("/forgot-password", async (req, res) => {
 router.put("/reset-password/:token", async (req, res) => {
   try {
     if (!req.params.token) {
-      return res.status(400).json({ msg: "Falha na autenticação!" });
+      return res.status(400).json({ msg: "Token incorreto ou expirado!" });
     }
+
+    jwt.verify(
+      req.params.token,
+      process.env.SIGN_SECRET_RESET_PASSWORD,
+      (err) => {
+        if (err) {
+          return res.status(400).json({ msg: "Token incorreto ou expirado!" });
+        }
+      }
+    );
 
     let user = await UserModel.findOne({ resetPassword: req.params.token });
 
@@ -86,7 +96,7 @@ router.put("/reset-password/:token", async (req, res) => {
     }
 
     if (!user) {
-      return res.status(400).json({ msg: "Usuário não encontrado" });
+      return res.status(400).json({ msg: "Token incorreto ou expirado!" });
     }
 
     const { newPassword } = req.body;
