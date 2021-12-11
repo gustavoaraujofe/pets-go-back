@@ -18,7 +18,8 @@ const UserSchema = new Schema({
     default:
       "https://icsr.zju.edu.cn/faculty/default.png",
   },
-  animals: [{type: Schema.Types.ObjectId, ref: "Animal"}]
+  animals: [{type: Schema.Types.ObjectId, ref: "Animal"}],
+  resetPassword: { type: String, default: ""}
 });
 
 const UserModel = model("User", UserSchema);

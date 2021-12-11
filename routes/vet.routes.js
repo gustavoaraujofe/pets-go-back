@@ -9,8 +9,6 @@ const uploader = require("../config/cloudinary.config");
 
 const salt_rounds = 10;
 
-
-
 //Upload de arquivos no Cloudinary
 router.post("/upload", uploader.single("picture"), (req, res) => {
   console.log(req.file);
@@ -75,7 +73,17 @@ router.post("/login", async (req, res) => {
 
     const token = generateToken(foundUser);
 
-    res.status(200).json({ token: token });
+    res
+      .status(200)
+      .json({
+        token: token,
+        user: {
+          name: foundUser.name,
+          email: foundUser.email,
+          role: foundUser.role,
+          id: foundUser._id,
+        },
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

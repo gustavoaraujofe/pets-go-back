@@ -17,7 +17,8 @@ const VetSchema = new mongoose.Schema({
     crmv: {type: String, required: true},
     specialties: [{type: String, trim: true}],
     rating: [Number],
-    schedule: {type: String}
+    schedule: {type: String},
+    resetPassword: { type: String, default: ""}
   });
   
   
