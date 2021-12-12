@@ -83,7 +83,6 @@ router.post("/login", async (req, res) => {
 
 // Buscar dados do usuário
 router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
-  console.log(req.headers);
 
   try {
     const loggedInUser = req.currentUser;
