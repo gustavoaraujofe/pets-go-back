@@ -13,11 +13,13 @@ const salt_rounds = 10;
 // Upload do avatar
 
 router.post("/upload", uploader.single("picture"), (req, res) => {
-  if (!req.file) {
+  console.log(req.file);
+  
+  if (!req.file) 
+  {
     return res.status(500).json({ msg: "Upload de arquivo falhou." });
   }
 
-  console.log(req.file);
 
   return res.status(200).json({ url: req.file.path });
 });
@@ -51,6 +53,12 @@ router.post("/signup", async (req, res) => {
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
+
+    // No moongoose, o erro 11000 é um erro de validação do modelo
+    if(err.code === 11000) {
+      return res.status(400).json(err.message)
+    }
+
     return res.status(500).json({ msg: JSON.stringify(err) });
   }
 });
