@@ -79,7 +79,15 @@ router.post("/login", async (req, res) => {
     if (await bcrypt.compare(password, user.passwordHash)) {
       const token = generateToken(user);
 
-      return res.status(200).json(token);
+      res.status(200).json({
+        token: token,
+        user: {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          id: user._id,
+        },
+      });
     } else {
       return res.status(401).json({ msg: "Senha ou email errado." });
     }
@@ -91,8 +99,6 @@ router.post("/login", async (req, res) => {
 
 // Buscar dados do usuário
 router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
-  console.log(req.headers);
-
   try {
     const loggedInUser = req.currentUser;
 

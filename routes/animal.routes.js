@@ -1,20 +1,28 @@
 const express = require("express");
 const uploader = require("../config/cloudinary.config");
 const AnimalModel = require("../models/Animal.model");
+const isAuthenticated = require("../middlewares/isAuthenticated");
+const attachCurrentUser = require("../middlewares/attachCurrentUser");
 
 const router = express.Router();
 
 // Upload
-router.post("/upload", uploader.single("picture"), (req, res) => {
-  if (!req.file) {
-    return res.status(500).json({ msg: "Upload de arquivo falhou." });
-  }
+router.post(
+  "/upload",
+  isAuthenticated,
+  attachCurrentUser,
+  uploader.single("picture"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(500).json({ msg: "Upload de arquivo falhou." });
+    }
 
-  return res.status(201).json({ url: req.file.path });
-});
+    return res.status(201).json({ url: req.file.path });
+  }
+);
 
 // POST
-router.post("/create", async (req, res) => {
+router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
     const result = await AnimalModel.create(req.body);
     res.status(201).json(result);
@@ -25,50 +33,65 @@ router.post("/create", async (req, res) => {
 });
 
 // GET (Busca detalhada)
-router.get("/search/:id", async (req, res) => {
-  try {
-    const result = await AnimalModel.findOne({ _id: req.params.id });
+router.get(
+  "/search/:id",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const result = await AnimalModel.findOne({ _id: req.params.id });
 
-    if (!result) {
-      return res.status(404).json("Animal não encotrado");
+      if (!result) {
+        return res.status(404).json("Animal não encontrado");
+      }
+
+      res.status(200).json(result);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-
-    res.status(200).json(result);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
   }
-});
+);
 
 // PATCH (Editar)
-router.patch("/edit/:id", async (req, res) => {
-  try {
-    const result = await AnimalModel.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: req.body },
-      { new: true, runValidators: true }
-    );
+router.patch(
+  "/edit/:id",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const result = await AnimalModel.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: req.body },
+        { new: true, runValidators: true }
+      );
 
-    if (!result) {
-      return res.status(404).json({ msg: "Animal não encontrado" });
+      if (!result) {
+        return res.status(404).json({ msg: "Animal não encontrado" });
+      }
+
+      res.status(200).json(result);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-
-    res.status(200).json(result);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
   }
-});
+);
 
 // DELETE
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const result = await AnimalModel.deleteOne({ _id: req.params.id });
-    res.status(200).json({});
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+router.delete(
+  "/delete/:id",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const result = await AnimalModel.deleteOne({ _id: req.params.id });
+      res.status(200).json({});
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   }
-});
+);
 
 module.exports = router;
