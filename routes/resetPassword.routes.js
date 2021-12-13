@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "gustavoaraujofe1@gmail.com",
-    pass: "*****",
+    pass: "******",
   },
 });
 
@@ -67,7 +67,7 @@ router.post("/forgot-password", async (req, res) => {
       from: "gustavoaraujofe1@gmail.com",
       to: user.email,
       subject: "Redefinir senha",
-      html: `<p>Clique no link para redefinir sua senha:<p> <a href=http://localhost:4000/api/v1/password/reset-password/${temporaryToken}>LINK</a>`,
+      html: `<p>Clique no link para redefinir sua senha:<p> <a href=http://localhost:3000/new-password/${temporaryToken}>LINK</a>`,
     };
 
     //Dispara o email para o usuário
@@ -86,6 +86,7 @@ router.post("/forgot-password", async (req, res) => {
 
 router.put("/reset-password/:token", async (req, res) => {
   try {
+    console.log("entrei")
     //Verifica a existência do token
     if (!req.params.token) {
       return res.status(400).json({ msg: "Token incorreto ou expirado!" });
