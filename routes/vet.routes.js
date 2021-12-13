@@ -90,6 +90,25 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+//Listar veterinários
+router.get("/list", isAuthenticated, async (req, res) => {
+  try {
+    
+    const response = await VetModel.find();
+
+    if (response) {
+      return res.status(200).json(response);
+    } else {
+      return res.status(404).json({ msg: "Usuário não encontrado." });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: JSON.stringify(err) });
+  }
+});
+
+
 //Update
 router.patch(
   "/edit-vet",
