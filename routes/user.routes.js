@@ -113,7 +113,7 @@ router.patch("/edit", isAuthenticated, attachCurrentUser, async (req, res) => {
       { $set: req.body },
       { new: true, runValidators: true }
     );
-
+ 
     if (!updateUser) {
       return res.status(404).json({ message: "Usuário não encontrado" });
     }
