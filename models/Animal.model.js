@@ -5,7 +5,7 @@ const animalSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   breed: { type: String, required: true },
   weight: Number,
-  sex: { type: String, required: true, trim: true },
+  gender: { type: String, required: true, trim: true },
   imageUrl: {
     type: String,
     default: "https://icsr.zju.edu.cn/faculty/default.png",
