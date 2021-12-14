@@ -73,28 +73,40 @@ router.post("/login", async (req, res) => {
 
     const token = generateToken(foundUser);
 
-    res
-      .status(200)
-      .json({
-        token: token,
-        user: {
-          name: foundUser.name,
-          email: foundUser.email,
-          role: foundUser.role,
-          id: foundUser._id,
-        },
-      });
+    res.status(200).json({
+      token: token,
+      user: {
+        name: foundUser.name,
+        email: foundUser.email,
+        role: foundUser.role,
+        id: foundUser._id,
+      },
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
+//Busca por um veterinario
+router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
+  try {
+    const loggedInUser = req.currentUser;
+
+    if (loggedInUser) {
+      return res.status(200).json(loggedInUser);
+    } else {
+      return res.status(404).json({ msg: "Usuário não encontrado." });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ msg: JSON.stringify(err) });
+  }
+});
 
 //Listar veterinários
 router.get("/list", isAuthenticated, async (req, res) => {
   try {
-    
     const response = await VetModel.find();
 
     if (response) {
@@ -107,7 +119,6 @@ router.get("/list", isAuthenticated, async (req, res) => {
     return res.status(500).json({ msg: JSON.stringify(err) });
   }
 });
-
 
 //Update
 router.patch(
@@ -133,6 +144,30 @@ router.patch(
     }
   }
 );
+
+router.patch(
+  "/schedule",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    const response = await VetModel.findOneAndUpdate(
+      { _id: req.user._id },
+      { $push: { schedule: req.body } },
+      { new: true, runValidators: true }
+    );
+    res.status(200).json(response);
+  }
+);
+
+router.get("/schedule/list/:id", async (req, res) => {
+  try {
+    const response = await VetModel.findOne({ _id: req.params.id });
+
+    res.status(200).json(response.schedule);
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 //Delete
 router.delete(

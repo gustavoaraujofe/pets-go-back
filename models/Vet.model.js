@@ -9,7 +9,7 @@ const VetSchema = new mongoose.Schema({
       unique: true,
       match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm,
     },
-    address: [{ type: String, required: true, trim: true}],
+    address: { type: String, required: true, trim: true},
     avatarUrl: {type: String, default: "https://icsr.zju.edu.cn/faculty/default.png"},
     genre: {type: String},
     passwordHash: { type: String, required: true },
@@ -18,7 +18,8 @@ const VetSchema = new mongoose.Schema({
     specialties: [{type: String, trim: true}],
     rating: [Number],
     schedule: {type: String},
-    resetPassword: { type: String, default: ""}
+    resetPassword: { type: String, default: ""},
+    schedule: []
   });
   
   
