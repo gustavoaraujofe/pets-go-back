@@ -1,5 +1,6 @@
 {
-    "peacock.color": "purple",
+    "peacock.darkForegroundColor": "",
+    "peacock.color": "PURPLE",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#b300b3",
         "activityBar.activeBorder": "#9f9f00",

@@ -24,6 +24,7 @@ router.post(
 // POST
 router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
+    console.log(req.body)
     const result = await AnimalModel.create(req.body);
     res.status(201).json(result);
   } catch (err) {
