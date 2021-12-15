@@ -33,8 +33,9 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
       { _id: req.body.vetId },
       {
         $set: {
-          patients: animalsSet, schedule: vet.schedule
-        }
+          patients: animalsSet,
+          schedule: vet.schedule,
+        },
       }
     );
 
@@ -43,6 +44,22 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
     console.error(err);
 
     return res.status(404).json({ msg: err });
+  }
+});
+
+router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
+  try {
+    const result = await AppointmentModel.find();
+    result.map((currentAppointment) => {
+      if (currentAppointment.date < new Date().toLocaleDateString()) {
+        const index = result.indexOf(currentAppointment);
+        result.splice(index, 1);
+      }
+    });
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
   }
 });
 
