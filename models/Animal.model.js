@@ -14,6 +14,7 @@ const animalSchema = new mongoose.Schema({
   medicalAppointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
   medicalRecord: [{ type: mongoose.Types.ObjectId, ref: "MedicalRecord" }],
   userId: { type: mongoose.Types.ObjectId, ref: "User" },
+  vetId: [{ type: mongoose.Types.ObjectId, ref: "Vet" }]
 });
 
 module.exports = mongoose.model("Animal", animalSchema);

@@ -10,8 +10,7 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   console.log(req.body);
   try {
     const result = await MedicalRecordModel.create(req.body);
-    console.log()
-
+    console.log(result)
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
