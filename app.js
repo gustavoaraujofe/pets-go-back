@@ -19,6 +19,7 @@ const medicalAppointmentRouter = require("./routes/medicalAppointment.routes");
 const vetRouter = require("./routes/vet.routes");
 const medicalRecordRouter = require("./routes/medicalRecord.routes");
 const resetPasswordRouter = require("./routes/resetPassword.routes")
+const appointmentRouter = require("./routes/appointment.routes")
 
 app.use(`/api/v${API_VERSION}/user`, userRouter);
 app.use(`/api/v${API_VERSION}/animal`, animalRouter);
@@ -26,6 +27,7 @@ app.use(`/api/v${API_VERSION}/medical-appointment`, medicalAppointmentRouter);
 app.use(`/api/v${API_VERSION}/vet`, vetRouter);
 app.use(`/api/v${API_VERSION}/medical-record`, medicalRecordRouter);
 app.use(`/api/v${API_VERSION}/password`, resetPasswordRouter);
+app.use(`/api/v${API_VERSION}/appointment`, appointmentRouter);
 
 
 app.listen(Number(process.env.PORT), () =>

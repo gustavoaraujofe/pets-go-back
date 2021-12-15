@@ -19,7 +19,8 @@ const VetSchema = new mongoose.Schema({
     rating: [Number],
     schedule: {type: String},
     resetPassword: { type: String, default: ""},
-    schedule: []
+    schedule: [],
+    patients: [String]
   });
   
   
