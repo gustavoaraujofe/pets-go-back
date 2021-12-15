@@ -103,7 +103,7 @@ router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
     const loggedInUser = req.currentUser;
 
     if (loggedInUser) {
-      return res.status(200).json(loggedInUser);
+      return res.status(200).json(loggedInUser)
     } else {
       return res.status(404).json({ msg: "Usuário não encontrado." });
     }

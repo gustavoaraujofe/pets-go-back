@@ -3,6 +3,7 @@ const uploader = require("../config/cloudinary.config");
 const AnimalModel = require("../models/Animal.model");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
+const UserModel = require("../models/User.model");
 
 const router = express.Router();
 
@@ -24,8 +25,8 @@ router.post(
 // POST
 router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req.body);
     const result = await AnimalModel.create(req.body);
+
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -69,9 +70,8 @@ router.get(
 // Lista de Animais do usuário
 router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req.currentUser._id)
+    console.log(req.currentUser._id);
     const animals = await AnimalModel.find();
-
 
     res.status(200).json(animals);
   } catch (err) {
