@@ -24,7 +24,7 @@ router.post(
 // POST
 router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const result = await AnimalModel.create(req.body);
     res.status(201).json(result);
   } catch (err) {
@@ -53,6 +53,20 @@ router.get(
     }
   }
 );
+
+// Lista de Animais do usuário
+router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
+  try {
+    console.log(req.currentUser._id)
+    const animals = await AnimalModel.find();
+
+
+    res.status(200).json(animals);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 // PATCH (Editar)
 router.patch(

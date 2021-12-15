@@ -6,3 +6,5 @@ package-lock.json
 .DS_Store
 
 settings.json
+
+.vscode

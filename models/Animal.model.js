@@ -11,6 +11,7 @@ const animalSchema = new mongoose.Schema({
     default: "https://icsr.zju.edu.cn/faculty/default.png",
   },
   type: {type: String, required: true},
+  medicalAppointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
   medicalRecord: [{ type: mongoose.Types.ObjectId, ref: "MedicalRecord" }],
   userId: { type: mongoose.Types.ObjectId, ref: "User" },
 });

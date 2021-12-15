@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
 
 const MedicalRecordSchema = new mongoose.Schema({
-  queriesHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
-  examHistory: [String],
-  diseaseHistory: [String],
-  vaccines: [String],
   idAnimal: {
     type: mongoose.Types.ObjectId,
-    ref: "Animal",
-    required: true,
-    unique: true,
+    ref: "Animal"
   },
+  appointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
+  date: { type: String, default: new Date().toLocaleDateString() },
+  clinicalSign: String,
+  exam: String,
+  disease: String,
+  prescription: String,
+  vaccine: String,
+  authorId: { type: mongoose.Types.ObjectId, ref: "Vet" }
 });
 
 module.exports = mongoose.model("MedicalRecord", MedicalRecordSchema);
