@@ -33,6 +33,18 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   }
 });
 
+
+router.get('/list', isAuthenticated, async (req, res) => {
+  try{
+      const animals = await AnimalModel.find()
+      res.status(200).json(animals)
+  } catch (err) {
+      console.log(err);
+      res.status(500).json(err)
+  }
+});
+
+
 // GET (Busca detalhada)
 router.get(
   "/search/:id",
