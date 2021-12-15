@@ -11,9 +11,31 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
     const result = await AppointmentModel.create(req.body);
 
+    const vet = await VetModel.findOne({ _id: req.body.vetId });
+
+    const animals = [...vet.patients, req.body.animalId];
+
+    const animalsSet = [...new Set(animals)];
+
+    vet.schedule.map((currentWeek) => {
+      for (let key in currentWeek) {
+        if (key === req.body.date) {
+          const index = currentWeek[key].indexOf(req.body.hour);
+          currentWeek[key].splice(index, 1);
+          if (!currentWeek[key].length) {
+            delete currentWeek[key];
+          }
+        }
+      }
+    });
+
     await VetModel.findOneAndUpdate(
       { _id: req.body.vetId },
-      { $push: { patients: req.body.animalId }}
+      {
+        $set: {
+          patients: animalsSet, schedule: vet.schedule
+        }
+      }
     );
 
     return res.status(201).json(result);
