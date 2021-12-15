@@ -66,4 +66,40 @@ router.patch("/edit/:id", async (req, res) => {
   }
 });
 
+//Editar consulta médica
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const result = await queryModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: req.body },
+      { new: true, runValitadors: true }
+    );
+
+    if (!result) {
+      return res.status(404).json({ msg: "Consulta não encontrada." });
+    }
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// DELETE
+router.delete(
+  "/delete/:id",
+  isAuthenticated,
+  attachCurrentUser,
+  async (req, res) => {
+    try {
+      const result = await queryModel.deleteOne({ _id: req.params.id });
+      res.status(200).json({});
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  }
+);
+
 module.exports = router;
