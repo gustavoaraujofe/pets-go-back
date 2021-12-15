@@ -11,8 +11,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "gustavoaraujofe1@gmail.com",
-    pass: "guh841226",
+    user: "contactpetsgo@gmail.com",
+    pass: "MXtT8H7&TyX9",
   },
 });
 
@@ -64,7 +64,7 @@ router.post("/forgot-password", async (req, res) => {
 
     //Configura o assunto e corpo do email
     const mailOptions = {
-      from: "gustavoaraujofe1@gmail.com",
+      from: "contactpetsgo@gmail.com",
       to: user.email,
       subject: "Redefinir senha",
       html: `<p>Clique no link para redefinir sua senha:<p> <a href=http://localhost:3000/new-password/${temporaryToken}>LINK</a>`,
