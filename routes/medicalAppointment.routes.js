@@ -4,11 +4,19 @@ const router = express.Router();
 const queryModel = require("../models/MedicalAppointment.model");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
+const AnimalModel = require("../models/Animal.model")
 
 //Criar consulta médica
 router.post("/create", async (req, res) => {
   try {
+    console.log(req.body)
     const result = await queryModel.create(req.body);
+    
+    await AnimalModel.findOneAndUpdate({_id: req.body.animalId}, {$push: {medicalAppointmentHistory: result._id, vetId: result.vetId}})
+    
+  
+
+
     res.status(201).json(result);
   } catch (err) {
     console.log(err);
@@ -39,6 +47,7 @@ router.get("/search/:id", async (req, res) => {
       return res.status(404).json("Consulta não encontrada.");
     }
 
+    
     res.status(200).json(query);
   } catch (err) {
     console.log(err);
