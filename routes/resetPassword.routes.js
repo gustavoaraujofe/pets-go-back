@@ -67,7 +67,7 @@ router.post("/forgot-password", async (req, res) => {
       from: "contactpetsgo@gmail.com",
       to: user.email,
       subject: "Redefinir senha",
-      html: `<p>Clique no link para redefinir sua senha:<p> <a href=http://localhost:3000/new-password/${temporaryToken}>LINK</a>`,
+      html: `<p>Clique no link para redefinir sua senha:<p> <a href=https://petsgo.netlify.app/new-password/${temporaryToken}>LINK</a>`,
     };
 
     //Dispara o email para o usuário
