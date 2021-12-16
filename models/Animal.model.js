@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const animalSchema = new mongoose.Schema({
+const animalSchema = new Schema({
   name: { type: String, required: true, trim: true },
   age: { type: Number, required: true },
   breed: { type: String, required: true },
@@ -11,9 +11,12 @@ const animalSchema = new mongoose.Schema({
     default: "https://icsr.zju.edu.cn/faculty/default.png",
   },
   type: {type: String, required: true},
-  medicalAppointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
-  userId: { type: mongoose.Types.ObjectId, ref: "User" },
-  vetId: [{ type: mongoose.Types.ObjectId, ref: "Vet" }]
+  medicalAppointmentHistory: [{ type: Schema.Types.ObjectId, ref: "MedicalAppointment" }],
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
+  vetId: [{ type: Schema.Types.ObjectId, ref: "Vet" }]
 });
 
-module.exports = mongoose.model("Animal", animalSchema);
+
+const AnimalModel = model("Animal", animalSchema);
+
+module.exports = AnimalModel;
