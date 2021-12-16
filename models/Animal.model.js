@@ -12,7 +12,6 @@ const animalSchema = new mongoose.Schema({
   },
   type: {type: String, required: true},
   medicalAppointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
-  medicalRecord: [{ type: mongoose.Types.ObjectId, ref: "MedicalRecord" }],
   userId: { type: mongoose.Types.ObjectId, ref: "User" },
   vetId: [{ type: mongoose.Types.ObjectId, ref: "Vet" }]
 });
