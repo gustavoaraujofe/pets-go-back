@@ -91,7 +91,7 @@ router.patch(
         { _id: req.params.id },
         { $set: req.body },
         { new: true, runValidators: true }
-      );
+      ).populate("medicalAppointmentHistory");
 
       if (!result) {
         return res.status(404).json({ msg: "Animal não encontrado" });

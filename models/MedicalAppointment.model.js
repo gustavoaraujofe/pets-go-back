@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const MedicalAppointmentSchema = new mongoose.Schema({
   animalId: { type: mongoose.Types.ObjectId, ref: "Animal" },
-  date: { type: String, default: new Date().toLocaleDateString() },
+  date: { type: String, default: new Date().toLocaleDateString()},
   weight: [Number],
   clinicalSign: [String],
   exam: [String],
