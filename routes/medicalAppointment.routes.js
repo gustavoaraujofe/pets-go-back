@@ -27,7 +27,7 @@ router.post("/create", async (req, res) => {
 // Lista de Prontuários
 router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req.currentUser._id)
+    
     const result = await queryModel.find();
 
 

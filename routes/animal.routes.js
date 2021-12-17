@@ -54,7 +54,7 @@ router.get(
   attachCurrentUser,
   async (req, res) => {
     try {
-      const result = await AnimalModel.findOne({ _id: req.params.id }).populate("userId");
+      const result = await AnimalModel.findOne({ _id: req.params.id })
 
       if (!result) {
         return res.status(404).json("Animal não encontrado");
