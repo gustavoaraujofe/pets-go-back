@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const Appointment = new mongoose.Schema({
-  animalId: String,
+  animalId: { type: mongoose.Types.ObjectId, ref: "Animal" },
   date: String,
   hour: String,
-  userId: String,
+  userId: { type: mongoose.Types.ObjectId, ref: "User" },
   vetId: { type: mongoose.Types.ObjectId, ref: "Vet" }
 });
 
