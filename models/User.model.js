@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     type: String,
     trim: true,
     default:
-      "https://icsr.zju.edu.cn/faculty/default.png",
+      "https://www.pinclipart.com/picdir/middle/148-1486972_mystery-man-avatar-circle-clipart.png",
   },
   animals: [{type: Schema.Types.ObjectId, ref: "Animal"}],
   resetPassword: { type: String, default: ""}

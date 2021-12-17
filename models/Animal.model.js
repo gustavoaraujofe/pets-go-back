@@ -8,7 +8,7 @@ const animalSchema = new mongoose.Schema({
   gender: { type: String, required: true, trim: true },
   imageUrl: {
     type: String,
-    default: "https://icsr.zju.edu.cn/faculty/default.png",
+    default: "https://res.cloudinary.com/dkzcbs84l/image/upload/v1639707949/picture_vet/file_ebxbiz.png",
   },
   type: {type: String, required: true},
   medicalAppointmentHistory: [{ type: mongoose.Types.ObjectId, ref: "MedicalAppointment" }],
