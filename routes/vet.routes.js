@@ -15,14 +15,14 @@ router.post("/upload", uploader.single("picture"), (req, res) => {
   if (!req.file) {
     return res.status(500).json({ msg: "Upload de arquivo falhou." });
   }
-  console.log(req.file);
+
 
   return res.status(201).json({ url: req.file.path });
 });
 
 // Criar um novo usuário
 router.post("/signup", async (req, res) => {
-  console.log(req.body);
+
   try {
     // Recuperar a senha que está vindo do corpo da requisição
     const { password } = req.body;
