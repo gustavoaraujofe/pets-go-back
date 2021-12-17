@@ -4,6 +4,7 @@ const AnimalModel = require("../models/Animal.model");
 const isAuthenticated = require("../middlewares/isAuthenticated");
 const attachCurrentUser = require("../middlewares/attachCurrentUser");
 const UserModel = require("../models/User.model");
+const MedicalAppointment = require("../models/MedicalAppointment.model");
 
 const router = express.Router();
 
@@ -53,7 +54,7 @@ router.get(
   attachCurrentUser,
   async (req, res) => {
     try {
-      const result = await AnimalModel.findOne({ _id: req.params.id });
+      const result = await AnimalModel.findOne({ _id: req.params.id }).populate("userId");
 
       if (!result) {
         return res.status(404).json("Animal não encontrado");
