@@ -49,7 +49,8 @@ router.post("/create", isAuthenticated, attachCurrentUser, async (req, res) => {
 
 router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    const result = await AppointmentModel.find();
+    const result = await AppointmentModel.find().populate("vetId").populate("animalId")
+
     result.map((currentAppointment) => {
       if (currentAppointment.date < new Date().toLocaleDateString()) {
         const index = result.indexOf(currentAppointment);
