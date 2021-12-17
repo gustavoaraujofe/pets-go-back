@@ -86,7 +86,7 @@ router.post("/forgot-password", async (req, res) => {
 
 router.put("/reset-password/:token", async (req, res) => {
   try {
-    console.log("entrei")
+   
     //Verifica a existência do token
     if (!req.params.token) {
       return res.status(400).json({ msg: "Token incorreto ou expirado!" });

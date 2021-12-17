@@ -9,7 +9,7 @@ const AnimalModel = require("../models/Animal.model")
 //Criar consulta médica
 router.post("/create", async (req, res) => {
   try {
-    console.log(req.body)
+   
     const result = await queryModel.create(req.body);
     
     await AnimalModel.findOneAndUpdate({_id: req.body.animalId}, {$push: {medicalAppointmentHistory: result._id, vetId: result.vetId}})

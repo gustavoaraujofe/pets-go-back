@@ -13,7 +13,7 @@ const salt_rounds = 10;
 // Upload do avatar
 
 router.post("/upload", uploader.single("picture"), (req, res) => {
-  console.log(req.file);
+  
   
   if (!req.file) 
   {
@@ -116,11 +116,11 @@ router.get("/profile", isAuthenticated, attachCurrentUser, (req, res) => {
 router.get("/profile/:id", isAuthenticated, async (req, res) => {
   try {
     
-    console.log(req.params.id)
+    
     if (req.params.id) {
       
       const user = await UserModel.findOne({_id: req.params.id});
-      console.log(user)
+   
       return res.status(200).json(user)
     } else {
       return res.status(404).json({ msg: "Usuário não encontrado." });
