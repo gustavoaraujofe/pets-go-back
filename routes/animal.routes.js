@@ -71,7 +71,7 @@ router.get(
 // Lista de Animais do usuário
 router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
-    console.log(req.currentUser._id);
+ 
     const animals = await AnimalModel.find().populate("userId");
 
     res.status(200).json(animals);

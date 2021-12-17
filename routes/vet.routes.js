@@ -11,7 +11,7 @@ const salt_rounds = 10;
 
 //Upload de arquivos no Cloudinary
 router.post("/upload", uploader.single("picture"), (req, res) => {
-  console.log(req.file);
+  
   if (!req.file) {
     return res.status(500).json({ msg: "Upload de arquivo falhou." });
   }
