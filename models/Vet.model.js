@@ -10,7 +10,7 @@ const VetSchema = new mongoose.Schema({
       match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm,
     },
     address: { type: String, required: true, trim: true},
-    avatarUrl: {type: String, default: "https://icsr.zju.edu.cn/faculty/default.png"},
+    avatarUrl: {type: String, default: "https://res.cloudinary.com/dkzcbs84l/image/upload/v1639713500/picture_vet/file_mrnq26.png"},
     genre: {type: String},
     passwordHash: { type: String, required: true },
     role: {type: String, default: "vet"},
