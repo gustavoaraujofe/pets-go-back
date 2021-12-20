@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const animalSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
-  age: { type: Number, required: true },
+  age: { type: String, required: true },
   breed: { type: String, required: true },
-  weight: Number,
+  weight: String,
   gender: { type: String, required: true, trim: true },
   imageUrl: {
     type: String,
