@@ -51,14 +51,14 @@ router.get("/list", isAuthenticated, attachCurrentUser, async (req, res) => {
   try {
     const result = await AppointmentModel.find().populate("vetId").populate("userId").populate("animalId")
 
-   
+    
     result.map((currentAppointment) => {
       if (currentAppointment.date < new Date().toLocaleDateString()) {
         const index = result.indexOf(currentAppointment);
         result.splice(index, 1);
       }
     });
-
+    
     res.status(200).json(result);
   } catch (err) {
     console.error(err);

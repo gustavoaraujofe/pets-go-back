@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const UserSchema = new Schema({
   name: { type: String, required: true, trim: true },
   role: { type: String, default: "user" },
-  address: { type: String, required: true, unique: true, trim: true },
+  address: { type: String, required: true, trim: true },
   email: {
     type: String,
     required: true,
@@ -15,11 +15,10 @@ const UserSchema = new Schema({
   avatarUrl: {
     type: String,
     trim: true,
-    default:
-      "https://icsr.zju.edu.cn/faculty/default.png",
+    default: "https://icsr.zju.edu.cn/faculty/default.png",
   },
-  animals: [{type: Schema.Types.ObjectId, ref: "Animal"}],
-  resetPassword: { type: String, default: ""}
+  animals: [{ type: Schema.Types.ObjectId, ref: "Animal" }],
+  resetPassword: { type: String, default: "" },
 });
 
 const UserModel = model("User", UserSchema);
