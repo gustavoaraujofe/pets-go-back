@@ -1,6 +1,6 @@
 # Pets Go
 
->Projeto 3 do bootcamp de Web Dev da Ironhack, desenvolvido em 1 semana;
+>Pet’s Go é um SPA (Single Page Application) usando MERN stack (MongoDB, Express, React & Node.js). Foi desenvolvido durante 1 semana para o projeto final do Bootcamp de Web Development da Ironhack São Paulo.
 
 ###
 
@@ -15,14 +15,15 @@
 
 ###
 
-Aplicação full-stack utilizando React desenvolvida em uma semana.
+
+Nesse projeto, construímos uma aplicação para conectar tutores e veterinários. O veterinário escolhe quais os dias estará disponível para consulta, acessa os agendamentos e dados do pet. Já o tutor pode agendar consultas, adicionar pets e acessar os prontuários enviados pelos veterinários.
 
 
 
 
 
 ###
-<img src="./src/assets/images/printscreen.png" alt="print" style="height:340px;"/>&nbsp; &nbsp; <img src="./src/assets/images/printscreen-mobile.jpg" alt="print" style="height:340px;"/> 
+<img src="https://res.cloudinary.com/dkzcbs84l/image/upload/v1639756127/picture_vet/Tela_1_ijs7xp.png" alt="print" style="height:250px;"/> &nbsp; <img src="https://res.cloudinary.com/dkzcbs84l/image/upload/v1639763685/picture_vet/WhatsApp_Image_2021-12-17_at_12.54.20_sn2bgx.jpg" alt="print" style="height:250px;"/>  &nbsp; <img src="https://res.cloudinary.com/dkzcbs84l/image/upload/v1639763685/picture_vet/WhatsApp_Image_2021-12-17_at_12.54.11_utncue.jpg" alt="print" style="height:250px;"/>  &nbsp; <img src="https://res.cloudinary.com/dkzcbs84l/image/upload/v1639764358/picture_vet/Capturaraaa2_pxx7kl.png" alt="print" style="height:250px;"/>
 ###
 
 
