@@ -160,7 +160,7 @@ router.get("/schedule/list/:id", async (req, res) => {
   try {
     const response = await VetModel.findOne({ _id: req.params.id });
 
-    response.schedule.map((currentWeek, i) => {
+    await response.schedule.map((currentWeek, i) => {
       for (let key in currentWeek) {
         if (key < new Date().toLocaleDateString()) {
           delete currentWeek[key];
