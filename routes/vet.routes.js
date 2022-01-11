@@ -189,6 +189,7 @@ router.get("/schedule/list/:id", async (req, res) => {
       }
     });
 
+    console.log(response.schedule);
     await VetModel.findOneAndUpdate(
       { _id: req.params.id },
       { $set: { schedule: response.schedule } },
