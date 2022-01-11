@@ -11,18 +11,15 @@ const salt_rounds = 10;
 
 //Upload de arquivos no Cloudinary
 router.post("/upload", uploader.single("picture"), (req, res) => {
-  
   if (!req.file) {
     return res.status(500).json({ msg: "Upload de arquivo falhou." });
   }
-
 
   return res.status(201).json({ url: req.file.path });
 });
 
 // Criar um novo usuário
 router.post("/signup", async (req, res) => {
-
   try {
     // Recuperar a senha que está vindo do corpo da requisição
     const { password } = req.body;
@@ -162,6 +159,41 @@ router.patch(
 router.get("/schedule/list/:id", async (req, res) => {
   try {
     const response = await VetModel.findOne({ _id: req.params.id });
+
+    response.schedule.map((currentWeek, i) => {
+      for (let key in currentWeek) {
+        if (key < new Date().toLocaleDateString()) {
+          delete currentWeek[key];
+        }
+
+        if (key === new Date().toLocaleDateString()) {
+          let hour = new Date().toLocaleTimeString();
+
+          const arrClone = [...currentWeek[key]];
+
+          arrClone.forEach((day) => {
+            if (day.split(":")[0] <= hour.split(":")[0]) {
+              let index = currentWeek[key].indexOf(day);
+              currentWeek[key].splice(index, 1);
+            }
+          });
+        }
+
+        if (!currentWeek[key]?.length) {
+          delete currentWeek[key];
+        }
+      }
+
+      if (Object.keys(currentWeek).length === 0) {
+        response.schedule.splice(i, 1);
+      }
+    });
+
+    await VetModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { schedule: response.schedule } },
+      { new: true, runValidators: true }
+    );
 
     res.status(200).json(response.schedule);
   } catch (err) {
