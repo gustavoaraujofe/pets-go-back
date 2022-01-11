@@ -160,8 +160,8 @@ router.get("/schedule/list/:id", async (req, res) => {
   try {
     const response = await VetModel.findOne({ _id: req.params.id });
     
-    const date = new Date().toLocaleDateString("pt-BR")
-    console.log(new Date())
+    const date = new Date().toLocaleDateString("pt-BR", {timeZone: "America/Sao_Paulo"});
+    console.log(new Date().toLocaleTimeString("pt-BR", {timeZone: "America/Sao_Paulo"}));
     await response.schedule.map((currentWeek, i) => {
       for (let key in currentWeek) {
         if (key < date) {
@@ -169,7 +169,7 @@ router.get("/schedule/list/:id", async (req, res) => {
         }
 
         if (key === date) {
-          let hour = new Date().toLocaleTimeString("pt-BR");
+          let hour = new Date().toLocaleTimeString("pt-BR", {timeZone: "America/Sao_Paulo"});
 
           const arrClone = [...currentWeek[key]];
 
