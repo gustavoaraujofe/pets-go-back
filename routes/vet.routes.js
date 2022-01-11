@@ -161,8 +161,7 @@ router.get("/schedule/list/:id", async (req, res) => {
     const response = await VetModel.findOne({ _id: req.params.id });
     
     const date = new Date().toLocaleDateString("pt-BR")
-    console.log(`const date = ${date}`)
-    console.log(`new date = ${new Date()}`)
+   
     await response.schedule.map((currentWeek, i) => {
       for (let key in currentWeek) {
         if (key < date) {
@@ -170,7 +169,7 @@ router.get("/schedule/list/:id", async (req, res) => {
         }
 
         if (key === date) {
-          let hour = new Date().toLocaleTimeString();
+          let hour = new Date().toLocaleTimeString("pt-BR");
 
           const arrClone = [...currentWeek[key]];
 
