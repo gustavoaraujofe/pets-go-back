@@ -159,14 +159,17 @@ router.patch(
 router.get("/schedule/list/:id", async (req, res) => {
   try {
     const response = await VetModel.findOne({ _id: req.params.id });
-
+    
+    const date = new Date().toLocaleDateString()
+    console.log(`const date = ${date}`)
+    console.log(`new date = ${new Date()}`)
     await response.schedule.map((currentWeek, i) => {
       for (let key in currentWeek) {
-        if (key < new Date().toLocaleDateString()) {
+        if (key < date) {
           delete currentWeek[key];
         }
 
-        if (key === new Date().toLocaleDateString()) {
+        if (key === date) {
           let hour = new Date().toLocaleTimeString();
 
           const arrClone = [...currentWeek[key]];
@@ -189,7 +192,6 @@ router.get("/schedule/list/:id", async (req, res) => {
       }
     });
 
-    console.log(response.schedule);
     await VetModel.findOneAndUpdate(
       { _id: req.params.id },
       { $set: { schedule: response.schedule } },
