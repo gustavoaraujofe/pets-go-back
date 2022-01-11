@@ -161,7 +161,7 @@ router.get("/schedule/list/:id", async (req, res) => {
     const response = await VetModel.findOne({ _id: req.params.id });
     
     const date = new Date().toLocaleDateString("pt-BR", {timeZone: "America/Sao_Paulo"});
-    console.log(new Date().toLocaleTimeString("pt-BR", {timeZone: "America/Sao_Paulo"}));
+
     await response.schedule.map((currentWeek, i) => {
       for (let key in currentWeek) {
         if (key < date) {
