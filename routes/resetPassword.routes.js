@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
 const UserModel = require("../models/User.model");
 const VetModel = require("../models/Vet.model");
-
-const nodemailer = require("nodemailer");
 
 //Configura o nodemailer para envio de emails
 const transporter = nodemailer.createTransport({
@@ -86,7 +85,7 @@ router.post("/forgot-password", async (req, res) => {
 
 router.put("/reset-password/:token", async (req, res) => {
   try {
-   
+
     //Verifica a existência do token
     if (!req.params.token) {
       return res.status(400).json({ msg: "Token incorreto ou expirado!" });

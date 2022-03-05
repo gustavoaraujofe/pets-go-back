@@ -29,7 +29,6 @@ app.use(`/api/v${API_VERSION}/vet`, vetRouter);
 app.use(`/api/v${API_VERSION}/password`, resetPasswordRouter);
 app.use(`/api/v${API_VERSION}/appointment`, appointmentRouter);
 
-
 app.listen(Number(process.env.PORT), () =>
   console.log(`Server up and running at port ${process.env.PORT}`)
 );
