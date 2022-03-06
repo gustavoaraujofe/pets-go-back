@@ -8,10 +8,12 @@ const VetModel = require("../models/Vet.model");
 
 //Configura o nodemailer para envio de emails
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: 'smtp.gmail.com',
   auth: {
     user: "contactpetsgo@gmail.com",
     pass: process.env.PASSWORD_EMAIL,
+    port: 587,
+    secure: true
   },
 });
 
